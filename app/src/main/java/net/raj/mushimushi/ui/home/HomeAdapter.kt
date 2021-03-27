@@ -1,5 +1,6 @@
 package net.raj.mushimushi.ui.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -18,6 +20,7 @@ import com.google.firebase.ktx.Firebase
 import net.raj.mushimushi.R
 import net.raj.mushimushi.models.Post
 import net.raj.mushimushi.ui.Utils
+import java.security.AccessController.getContext
 
 class HomeAdapter(options : FirestoreRecyclerOptions<Post>,val listener : IPostAdapter) : FirestoreRecyclerAdapter<Post, HomeAdapter.HomeAdapterViewholder>(
     options
@@ -83,6 +86,12 @@ class HomeAdapter(options : FirestoreRecyclerOptions<Post>,val listener : IPostA
             holder.likeButton.setImageDrawable(ContextCompat.getDrawable(holder.likeButton.context, R.drawable.ic_liked))
         } else {
             holder.likeButton.setImageDrawable(ContextCompat.getDrawable(holder.likeButton.context, R.drawable.ic_unliked))
+        }
+    }
+
+    override fun onDataChanged() {
+        if( itemCount==0 ){
+            Log.d("HomeAdapter","Nothing found")
         }
     }
 }
