@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/signInFragment">
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="net.raj.mushimushi.ui.home.SignInFragment"
+        android:label="SignInFragment" >
+        <action
+            android:id="@+id/action_signInFragment2_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="net.raj.mushimushi.ui.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_commentSectActivity"
+            app:destination="@id/commentSectActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="net.raj.mushimushi.ui.home.CreatePostFragment"
+        android:label="CreatePostFragment" />
+    <activity
+        android:id="@+id/commentSectActivity"
+        android:name="net.raj.mushimushi.ui.comments.CommentSectActivity"
+        android:label="activity_comment_sect"
+        tools:layout="@layout/activity_comment_sect" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </activity>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="net.raj.mushimushi.ui.search.SearchFragment"
+        android:label="SearchFragment" />
+</navigation>

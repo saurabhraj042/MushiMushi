@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="appBarColorDay">@color/black</color>
+    <color name="titleTextColor">#eaeaea</color>
+    <color name="signOutButtonColor">#eaeaea</color>
+</resources>
