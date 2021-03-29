@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import net.raj.mushimushi.R
@@ -23,7 +24,6 @@ import net.raj.mushimushi.databinding.FragmentSignInBinding
 class SignInFragment : Fragment() {
     private val RC_SIGN_IN: Int = 123
     private val TAG = "SignInFragment"
-
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var binding: FragmentSignInBinding
     private val sharedViewModel : HomeViewModel by activityViewModels()
@@ -41,21 +41,24 @@ class SignInFragment : Fragment() {
 
         googleSignInClient = activity?.let { GoogleSignIn.getClient(it, gso) }!!
 
+
+        sharedViewModel.firebaseUser = FirebaseAuth.getInstance().currentUser
+
         binding.signInButton.setOnClickListener{
             signIn()
         }
 
 
-        sharedViewModel.firebaseUser.observe(viewLifecycleOwner){
-            updateUI(it)
-        }
+//        sharedViewModel.firebaseUser.observe(viewLifecycleOwner){
+//            updateUI(it)
+//        }
         return binding.root
     }
 
 
     override fun onStart() {
         super.onStart()
-        updateUI(sharedViewModel.firebaseUser.value)
+        updateUI(sharedViewModel.firebaseUser)
     }
 
     private fun signIn() {
@@ -92,7 +95,8 @@ class SignInFragment : Fragment() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success")
 
-                           sharedViewModel.firebaseUser.value = sharedViewModel.auth.currentUser
+                           sharedViewModel.firebaseUser = sharedViewModel.auth.currentUser
+                            updateUI(sharedViewModel.firebaseUser)
 
                         } else {
                             // If sign in fails, display a message to the user.

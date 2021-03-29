@@ -34,12 +34,14 @@ class HomeAdapter(options : FirestoreRecyclerOptions<Post>,val listener : IPostA
         val userImage: ImageView = itemView.findViewById(R.id.userImage)
         val likeButton: ImageView = itemView.findViewById(R.id.likeButton)
         val commentButton : ImageView = itemView.findViewById(R.id.commentButton)
+        val commentCount : TextView = itemView.findViewById(R.id.commentCount)
         val hahaButton : ImageView = itemView.findViewById(R.id.hahaEmojiImageView)
         val hahaCount : TextView = itemView.findViewById(R.id.hahaCount)
         val angryButton : ImageView = itemView.findViewById(R.id.angryEmojiImageView)
         val angryCount : TextView = itemView.findViewById(R.id.angryCount)
         val sadButton : ImageView = itemView.findViewById(R.id.sadEmojiImageView)
         val sadCount : TextView = itemView.findViewById(R.id.sadCount)
+        val deletePostButton : ImageView = itemView.findViewById(R.id.deletePostButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapterViewholder {
@@ -59,13 +61,16 @@ class HomeAdapter(options : FirestoreRecyclerOptions<Post>,val listener : IPostA
         viewHolder.commentButton.setOnClickListener{
             listener.onCommentButtonClicked(snapshots.getSnapshot(viewHolder.adapterPosition).id)
         }
+        viewHolder.deletePostButton.setOnClickListener {
+            listener.onPostDelete(snapshots.getSnapshot(viewHolder.adapterPosition).id)
+        }
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: HomeAdapterViewholder, position: Int, model: Post) {
         holder.postText.text = model.textBody
         holder.userText.text = model.user.displayName
-
+        Log.e("Adapter",model.textBody + position.toString())
         Glide.with(holder.userImage.context).load(model.user.imageUrl)
                 .apply(RequestOptions()
                         .format(DecodeFormat.PREFER_ARGB_8888)
@@ -79,6 +84,8 @@ class HomeAdapter(options : FirestoreRecyclerOptions<Post>,val listener : IPostA
         holder.createdAt.text = Utils.getTimeAgo(model.createdAt)
         holder.commentButton.setImageDrawable(ContextCompat.getDrawable(holder.commentButton.context,R.drawable.ic_comment))
 
+        holder.commentCount.text = listener.commentCount(snapshots.getSnapshot(position).id)
+
         val auth = Firebase.auth
         val currentUserId = auth.currentUser!!.uid
         val isLiked = model.likes.contains(currentUserId)
@@ -86,6 +93,17 @@ class HomeAdapter(options : FirestoreRecyclerOptions<Post>,val listener : IPostA
             holder.likeButton.setImageDrawable(ContextCompat.getDrawable(holder.likeButton.context, R.drawable.ic_liked))
         } else {
             holder.likeButton.setImageDrawable(ContextCompat.getDrawable(holder.likeButton.context, R.drawable.ic_unliked))
+        }
+
+
+
+        val isPostOwner = model.postId.contains(auth.currentUser.email)
+        if(isPostOwner){
+            Log.d("Adapter","Del")
+            holder.deletePostButton.visibility = View.VISIBLE
+        }else{
+            holder.deletePostButton.visibility = View.GONE
+
         }
     }
 
@@ -97,6 +115,8 @@ class HomeAdapter(options : FirestoreRecyclerOptions<Post>,val listener : IPostA
 }
 
 interface IPostAdapter {
+    fun onPostDelete(postId: String)
     fun onReactionClicked(postId: String,type : String)
     fun onCommentButtonClicked(postId: String)
+    fun commentCount(id: String): String
 }

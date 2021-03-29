@@ -83,6 +83,12 @@ class SearchFragment : Fragment(), IPostAdapter {
 
     }
 
+
+
+    override fun onPostDelete(postId: String) {
+        viewModel.deletePost(postId)
+    }
+
     override fun onReactionClicked(postId: String, type: String) {
         viewModel.updatePostReaction(postId,type)
     }
@@ -90,6 +96,10 @@ class SearchFragment : Fragment(), IPostAdapter {
     override fun onCommentButtonClicked(postId: String) {
         val bundle = bundleOf("postId" to postId)
         Navigation.findNavController(binding.root).navigate(R.id.action_homeFragment_to_commentSectActivity,bundle)
+    }
+
+    override fun commentCount(id: String): String {
+        return "0"
     }
 
 

@@ -1,6 +1,11 @@
 package net.raj.mushimushi.ui
 
 import com.google.firebase.firestore.CollectionReference
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import net.raj.mushimushi.daos.CommentsDao
 import net.raj.mushimushi.daos.PostDao
 import net.raj.mushimushi.daos.UserDao
@@ -37,5 +42,11 @@ class Repository {
     suspend fun updatePostReaction(postId : String,type : String){
         postDao.updateReaction(postId,type)
     }
+
+     suspend fun deletePost(postId: String) {
+            postDao.deletePost(postId)
+    }
+
+    
 
 }

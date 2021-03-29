@@ -19,4 +19,11 @@ class SearchViewModel : ViewModel() {
             repository.updatePostReaction(postId,type)
         }
     }
+
+    fun deletePost(postId: String) {
+        GlobalScope.launch(Dispatchers.IO) {
+            repository.deletePost(postId)
+        }
+    }
+
 }

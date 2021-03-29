@@ -27,9 +27,10 @@
             android:layout_marginBottom="52dp"
             app:layout_constraintBottom_toBottomOf="@+id/coordinatorLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/homeTitleTop" />
+            app:layout_constraintTop_toBottomOf="@+id/homeTitleTop"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinatorLayout"
@@ -71,6 +72,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/scrollUpButtonHomeFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/curve_bg"
+            android:drawableRight="@drawable/ic_arrow_upward"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="New Posts"
+            android:textSize="8sp"
+            app:iconPadding="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recyclerView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package net.raj.mushimushi.daos
 
+import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
@@ -81,5 +82,12 @@ class PostDao {
         postCollection.document(postId).set(post)
 
 
+    }
+
+    suspend fun deletePost(postId: String) {
+        postCollection.document(postId).delete()
+                .addOnSuccessListener {
+                    Log.d("Del","Deleted")
+                }
     }
 }
