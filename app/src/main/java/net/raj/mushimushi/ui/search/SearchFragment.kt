@@ -81,6 +81,10 @@ class SearchFragment : Fragment(), IPostAdapter {
 
     }
 
+    override fun onSaveBTClicked(postId: String) {
+        viewModel.onSavePostByUser(postId)
+    }
+
     override fun changeInListSize(itemCount: Int) {
         Timber.d("Doing Nothing bruh chill ;)")
     }

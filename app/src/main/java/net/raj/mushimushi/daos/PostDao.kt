@@ -16,6 +16,20 @@ class PostDao {
     private val auth = Firebase.auth
     private val userDao = UserDao()
 
+    suspend fun savePostForUser(postId: String){
+        val currentUserId = auth.currentUser!!.uid
+        val post = getPostById(postId).await().toObject(Post::class.java)!!
+        post.savedByUsers.add(currentUserId)
+        postCollection.document(postId).set(post)
+    }
+
+    suspend fun unSavePostForUser(postId: String){
+        val currentUserId = auth.currentUser!!.uid
+        val post = getPostById(postId).await().toObject(Post::class.java)!!
+        post.savedByUsers.remove(currentUserId)
+        postCollection.document(postId).set(post)
+    }
+
     suspend fun addPost(text: String) {
         val user = userDao.getUserById(auth.currentUser!!.email!!).await()
             .toObject(net.raj.mushimushi.models.User::class.java)!!

@@ -10,7 +10,9 @@
         android:label="SignInFragment" >
         <action
             android:id="@+id/action_signInFragment2_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -18,13 +20,24 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_createPostFragment"
-            app:destination="@id/createPostFragment" />
+            app:destination="@id/createPostFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left" />
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left" />
         <action
             android:id="@+id/action_homeFragment_to_commentFragment"
-            app:destination="@id/commentFragment" />
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left" />
+        <action
+            android:id="@+id/action_homeFragment_to_savedPostsFragment"
+            app:destination="@id/savedPostsFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
@@ -36,7 +49,9 @@
         android:label="SearchFragment" >
         <action
             android:id="@+id/action_searchFragment_to_commentFragment"
-            app:destination="@id/commentFragment" />
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/commentFragment"
@@ -45,5 +60,16 @@
         <argument
             android:name="postId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedPostsFragment"
+        android:name="net.raj.mushimushi.ui.saved.SavedPostsFragment"
+        android:label="saved_posts_fragment"
+        tools:layout="@layout/fragment_saved_posts" >
+        <action
+            android:id="@+id/action_savedPostsFragment_to_commentFragment"
+            app:destination="@id/commentFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left" />
     </fragment>
 </navigation>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/postCardViewHome"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -27,6 +26,7 @@
             android:layout_height="64dp"
             android:layout_margin="0dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/des_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/txt_body_post"
@@ -78,8 +78,9 @@
             android:id="@+id/btn_like_post"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
+            android:contentDescription="@string/des_image"
             app:layout_constraintLeft_toLeftOf="@id/txt_body_post"
             app:layout_constraintTop_toBottomOf="@id/txt_body_post" />
 
@@ -87,7 +88,7 @@
             android:id="@+id/txt_like_count_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/btn_like_post"
             app:layout_constraintLeft_toRightOf="@id/btn_like_post"
@@ -99,6 +100,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:contentDescription="@string/des_image"
             app:layout_constraintStart_toEndOf="@+id/txt_like_count_post"
             app:layout_constraintTop_toBottomOf="@+id/txt_body_post" />
 
@@ -107,6 +109,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
+            android:contentDescription="@string/des_image"
             app:layout_constraintBottom_toBottomOf="@+id/btn_comment_post"
             app:layout_constraintStart_toEndOf="@+id/txt_comment_count_post"
             app:layout_constraintTop_toTopOf="@+id/btn_comment_post"
@@ -127,6 +130,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
+            android:contentDescription="@string/des_image"
             app:layout_constraintBottom_toBottomOf="@+id/btn_haha_post"
             app:layout_constraintStart_toEndOf="@+id/txt_haha_count_post"
             app:layout_constraintTop_toTopOf="@+id/btn_haha_post"
@@ -147,6 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:contentDescription="@string/des_image"
             app:layout_constraintBottom_toBottomOf="@+id/btn_angry_post"
             app:layout_constraintStart_toEndOf="@+id/txt_angry_count_post"
             app:layout_constraintTop_toTopOf="@+id/btn_angry_post"
@@ -177,9 +182,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:contentDescription="@string/des_image"
             app:layout_constraintBottom_toBottomOf="@+id/btn_sad_post"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_delete" />
+
+        <ImageView
+            android:id="@+id/btn_save_post"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/des_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_user_post" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

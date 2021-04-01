@@ -18,7 +18,8 @@ import com.google.firebase.ktx.Firebase
 import net.raj.mushimushi.R
 import net.raj.mushimushi.models.Post
 
-class PostAdapter(options: FirestoreRecyclerOptions<Post>, private val listener: IPostAdapter) :
+class PostAdapter(options: FirestoreRecyclerOptions<Post>, private val listener: IPostAdapter,
+                    private val viewOnEmpty : View? = null) :
     FirestoreRecyclerAdapter<Post, PostAdapter.PostAdapterViewHolder>(
         options
     ) {
@@ -39,6 +40,7 @@ class PostAdapter(options: FirestoreRecyclerOptions<Post>, private val listener:
         val btSadCount: TextView = itemView.findViewById(R.id.txt_sad_count_post)
         val btDeletePost: ImageView = itemView.findViewById(R.id.btn_del_post)
         val txtCommentCount: TextView = itemView.findViewById(R.id.txt_comment_count_post)
+        val btSavePost : ImageView = itemView.findViewById(R.id.btn_save_post)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapterViewHolder {
@@ -74,6 +76,9 @@ class PostAdapter(options: FirestoreRecyclerOptions<Post>, private val listener:
         }
         viewHolder.btDeletePost.setOnClickListener {
             listener.onPostDeleteBTClicked(snapshots.getSnapshot(viewHolder.adapterPosition).id)
+        }
+        viewHolder.btSavePost.setOnClickListener {
+            listener.onSaveBTClicked(snapshots.getSnapshot(viewHolder.adapterPosition).id)
         }
         return viewHolder
     }
@@ -124,6 +129,23 @@ class PostAdapter(options: FirestoreRecyclerOptions<Post>, private val listener:
             )
         }
 
+        val isPostSavedByUser = model.savedByUsers.contains(currentUserId)
+        if (isPostSavedByUser) {
+            holder.btSavePost.setImageDrawable(
+                ContextCompat.getDrawable(
+                    holder.btSavePost.context,
+                    R.drawable.ic_saved
+                )
+            )
+        } else {
+            holder.btSavePost.setImageDrawable(
+                ContextCompat.getDrawable(
+                    holder.btSavePost.context,
+                    R.drawable.ic_save
+                )
+            )
+        }
+
 
         val isPostOwner = model.postId.contains(userEmail)
         holder.btDeletePost.visibility = if (isPostOwner) View.VISIBLE else View.GONE
@@ -141,10 +163,14 @@ class PostAdapter(options: FirestoreRecyclerOptions<Post>, private val listener:
 
     override fun onDataChanged() {
         listener.changeInListSize(itemCount)
+        if( viewOnEmpty!=null ){
+            viewOnEmpty.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
+        }
     }
 }
 
 interface IPostAdapter {
+    fun onSaveBTClicked(postId: String)
     fun changeInListSize(itemCount: Int)
     fun onPostDeleteBTClicked(postId: String)
     fun onReactionBTClicked(postId: String, type: String)

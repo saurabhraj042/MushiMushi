@@ -11,6 +11,14 @@ class Repository {
     private val postDao = PostDao()
     private val commentsDao = CommentsDao()
 
+    suspend fun savePostForUser(postId: String){
+        postDao.savePostForUser(postId)
+    }
+
+    suspend fun unSavePostForUser(postId: String){
+        postDao.unSavePostForUser(postId)
+    }
+
     suspend fun addComment(text: String, postId: String) {
         commentsDao.addComment(text, postId)
     }

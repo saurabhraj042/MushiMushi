@@ -79,6 +79,12 @@ class HomeFragment : Fragment(), IPostAdapter {
                         .navigate(R.id.action_homeFragment_to_searchFragment)
                     true
                 }
+
+                R.id.btn_saved_post_view -> {
+                    Navigation.findNavController(binding.root)
+                        .navigate(R.id.action_homeFragment_to_savedPostsFragment)
+                    true
+                }
                 else -> false
             }
         }
@@ -92,6 +98,10 @@ class HomeFragment : Fragment(), IPostAdapter {
         val layoutManager = LinearLayoutManager(this.context)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = layoutManager
+    }
+
+    override fun onSaveBTClicked(postId: String) {
+        viewModel.onSavePostBTClicked(postId)
     }
 
     override fun changeInListSize(itemCount: Int) {

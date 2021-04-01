@@ -12,6 +12,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import net.raj.mushimushi.models.Post
 import net.raj.mushimushi.models.User
 import net.raj.mushimushi.ui.Repository
 
@@ -65,6 +67,19 @@ class HomeViewModel : ViewModel() {
         GlobalScope.launch(Dispatchers.IO) {
             repository.deletePost(postId)
             repository.deleteComments(postId)
+        }
+    }
+
+    fun onSavePostBTClicked(postId: String) {
+        val currentUserId = Firebase.auth.currentUser!!.uid
+        val postCollection = repository.getPostCollectionReference()
+        GlobalScope.launch(Dispatchers.IO) {
+            val isSavedByUser = postCollection.document(postId).get().await().toObject(Post::class.java)!!.savedByUsers.contains(currentUserId)
+            if (isSavedByUser){
+                repository.unSavePostForUser(postId)
+            }else{
+                repository.savePostForUser(postId)
+            }
         }
     }
 

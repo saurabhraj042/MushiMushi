@@ -2,17 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/btn_search_post"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="@string/title_searchBT_home"
-        android:contentDescription="@string/description_searchBT_home"
-        app:showAsAction="ifRoom"
-        />
-
-    <item
         android:id="@+id/btn_sign_out"
         android:icon="@drawable/ic_sign_out"
         android:title="@string/title_signOut_home"
-        app:showAsAction="never
-"/>
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/btn_saved_post_view"
+        android:icon="@drawable/ic_save_appbar"
+        android:title="Saved Posts"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/btn_search_post"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/title_searchBT_home"
+        app:showAsAction="ifRoom" />
+
+
 </menu>

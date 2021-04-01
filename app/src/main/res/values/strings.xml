@@ -10,4 +10,12 @@
     <string name="description_searchBT_home">"Search Post Button "</string>
     <string name="title_signOut_home">Sign out</string>
     <string name="et_hint_comment">Wanna add something :)</string>
+    <string name="title_saved_posts">Saved Posts</string>
+    <string name="des_image">Image</string>
+    <string name="txt_empty">Empty</string>
+    <string name="txt_comments">Comments</string>
+    <string name="hint_et_create_post">What do you want to talk about?</string>
+    <string name="txt_post_btn">POST</string>
+    <string name="hint_et_search_post">Search for someting :)</string>
+    <string name="txt_search_post_btn">Search Posts</string>
 </resources>

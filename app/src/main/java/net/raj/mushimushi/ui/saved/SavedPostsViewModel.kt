@@ -1,4 +1,4 @@
-package net.raj.mushimushi.ui.search
+package net.raj.mushimushi.ui.saved
 
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
@@ -11,26 +11,14 @@ import kotlinx.coroutines.tasks.await
 import net.raj.mushimushi.models.Post
 import net.raj.mushimushi.ui.Repository
 
-class SearchViewModel : ViewModel() {
+class SavedPostsViewModel : ViewModel() {
     private val repository = Repository()
 
     fun getPostCollectionRef(): CollectionReference {
         return repository.getPostCollectionReference()
     }
 
-    fun updatePostReaction(postId: String, type: String) {
-        GlobalScope.launch(Dispatchers.IO) {
-            repository.updatePostReaction(postId, type)
-        }
-    }
-
-    fun deletePost(postId: String) {
-        GlobalScope.launch(Dispatchers.IO) {
-            repository.deletePost(postId)
-        }
-    }
-
-    fun onSavePostByUser(postId: String) {
+    fun onSavePostBTClicked(postId: String) {
         val currentUserId = Firebase.auth.currentUser!!.uid
         val postCollection = repository.getPostCollectionReference()
         GlobalScope.launch(Dispatchers.IO) {
@@ -40,6 +28,19 @@ class SearchViewModel : ViewModel() {
             }else{
                 repository.savePostForUser(postId)
             }
+        }
+    }
+
+    fun deletePost(postId: String) {
+        GlobalScope.launch(Dispatchers.IO) {
+            repository.deletePost(postId)
+            repository.deleteComments(postId)
+        }
+    }
+
+    fun updatePostReaction(postId: String, type: String) {
+        GlobalScope.launch(Dispatchers.IO) {
+            repository.updatePostReaction(postId, type)
         }
     }
 
