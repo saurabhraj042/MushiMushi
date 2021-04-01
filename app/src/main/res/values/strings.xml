@@ -3,4 +3,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appName">MushiMushi</string>
+    <string name="titleAppBarHome">MushiMushi</string>
+    <string name="textNewPostBTHome">New Posts</string>
+    <string name="description_postBT_home">Add post Button</string>
+    <string name="title_searchBT_home">Search</string>
+    <string name="description_searchBT_home">"Search Post Button "</string>
+    <string name="title_signOut_home">Sign out</string>
+    <string name="et_hint_comment">Wanna add something :)</string>
 </resources>

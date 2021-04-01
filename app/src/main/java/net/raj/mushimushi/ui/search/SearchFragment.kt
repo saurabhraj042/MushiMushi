@@ -1,42 +1,40 @@
 package net.raj.mushimushi.ui.search
 
-import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.Query
 import net.raj.mushimushi.R
-import net.raj.mushimushi.databinding.SearchFragmentBinding
+import net.raj.mushimushi.databinding.FragmentSearchBinding
 import net.raj.mushimushi.models.Post
-import net.raj.mushimushi.ui.home.HomeAdapter
-import net.raj.mushimushi.ui.home.IPostAdapter
+import net.raj.mushimushi.ui.shared.IPostAdapter
+import net.raj.mushimushi.ui.shared.PostAdapter
+import timber.log.Timber
 
 class SearchFragment : Fragment(), IPostAdapter {
 
-    private lateinit var adapter:HomeAdapter
-    private lateinit var binding: SearchFragmentBinding
+    private lateinit var adapter: PostAdapter
+    private lateinit var binding: FragmentSearchBinding
     private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        binding = DataBindingUtil.inflate(layoutInflater,R.layout.search_fragment,container,false)
+        binding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_search, container, false)
 
         setupClickListeners()
         setupRecyclerView()
@@ -46,60 +44,60 @@ class SearchFragment : Fragment(), IPostAdapter {
 
     private fun setupClickListeners() {
 
-        binding.searchButtonSearchFragment.setOnClickListener {
+        binding.btnSearchForPost.setOnClickListener {
             setupRecyclerView()
-            hideKeyBoard()
+            hideKBD()
             adapter.startListening()
         }
     }
 
-    private fun hideKeyBoard() {
+    private fun hideKBD() {
         val imm: InputMethodManager =
-                requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     private fun setupRecyclerView() {
-        var searchText = binding.searchTextSearchFragment.text.toString()
+        val searchText = binding.etSearch.text.toString()
 
 
-        var query = if( searchText.isEmpty()){
+        val query = if (searchText.isEmpty()) {
             viewModel.getPostCollectionRef()
-                .orderBy("createdAt",Query.Direction.DESCENDING)
-        }else{
-            Log.d("Search","Searching for "+ searchText)
+                .orderBy("createdAt", Query.Direction.DESCENDING)
+        } else {
+            Timber.d("Searching for $searchText")
             viewModel.getPostCollectionRef()
-                    .whereGreaterThanOrEqualTo("textBody",searchText)
-                    .whereLessThanOrEqualTo("textBody",searchText+'\uf8ff')
+                .whereGreaterThanOrEqualTo("textBody", searchText)
+                .whereLessThanOrEqualTo("textBody", searchText + '\uf8ff')
         }
 
         val recyclerViewOptions = FirestoreRecyclerOptions.Builder<Post>()
             .setQuery(query, Post::class.java).build()
 
-        adapter = HomeAdapter(recyclerViewOptions,this)
+        adapter = PostAdapter(recyclerViewOptions, this)
 
-        binding.recyclerViewSearchFragment.adapter = adapter
-        binding.recyclerViewSearchFragment.layoutManager = LinearLayoutManager(this.context)
+        binding.recyclerSearch.adapter = adapter
+        binding.recyclerSearch.layoutManager = LinearLayoutManager(this.context)
 
     }
 
+    override fun changeInListSize(itemCount: Int) {
+        Timber.d("Doing Nothing bruh chill ;)")
+    }
 
 
-    override fun onPostDelete(postId: String) {
+    override fun onPostDeleteBTClicked(postId: String) {
         viewModel.deletePost(postId)
     }
 
-    override fun onReactionClicked(postId: String, type: String) {
-        viewModel.updatePostReaction(postId,type)
+    override fun onReactionBTClicked(postId: String, type: String) {
+        viewModel.updatePostReaction(postId, type)
     }
 
-    override fun onCommentButtonClicked(postId: String) {
+    override fun onCommentBTClicked(postId: String) {
         val bundle = bundleOf("postId" to postId)
-        Navigation.findNavController(binding.root).navigate(R.id.action_homeFragment_to_commentSectActivity,bundle)
-    }
-
-    override fun commentCount(id: String): String {
-        return "0"
+        Navigation.findNavController(binding.root)
+            .navigate(R.id.action_searchFragment_to_commentFragment, bundle)
     }
 
 

@@ -1,15 +1,14 @@
 package net.raj.mushimushi.ui.home
 
-import android.content.Context.*
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import net.raj.mushimushi.R
 import net.raj.mushimushi.databinding.FragmentCreatePostBinding
@@ -18,27 +17,34 @@ import net.raj.mushimushi.databinding.FragmentCreatePostBinding
 class CreatePostFragment : Fragment() {
 
     private lateinit var binding: FragmentCreatePostBinding
-    private val sharedViewModel : HomeViewModel by activityViewModels()
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_post, container, false)
-
-        binding.postButton.setOnClickListener{
-            val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?
-            imm!!.hideSoftInputFromWindow(binding.root.windowToken, 0)
-
-            fetchInputText()
-        }
-
+        setOnClickListeners()
         return binding.root
     }
 
-    private fun fetchInputText() {
-        val text = binding.postInput.text.toString().trim()
-        sharedViewModel.addPost(text)
+    private fun setOnClickListeners() {
+        binding.btnNewPost.setOnClickListener {
+            hideSoftKBD()
+            getInputText()
+        }
+
+    }
+
+    private fun hideSoftKBD() {
+        val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm!!.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    }
+
+    private fun getInputText() {
+        val text = binding.etInputPost.text.toString().trim()
+        viewModel.addNewPost(text)
         Navigation.findNavController(binding.root).popBackStack()
     }
 

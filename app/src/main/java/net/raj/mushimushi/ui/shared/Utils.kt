@@ -1,4 +1,4 @@
-package net.raj.mushimushi.ui
+package net.raj.mushimushi.ui.shared
 
 class Utils {
     companion object {

@@ -1,6 +1,5 @@
 package net.raj.mushimushi.daos
 
-import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
@@ -9,42 +8,44 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 import net.raj.mushimushi.models.Post
-import net.raj.mushimushi.models.User as ModelsUser
+import timber.log.Timber
 
 class PostDao {
     private val db = FirebaseFirestore.getInstance()
     private val postCollection = db.collection("posts")
     private val auth = Firebase.auth
+    private val userDao = UserDao()
 
-    suspend fun addPost(text : String,){
-        val userDao = UserDao()
-        val user = userDao.getUserById(auth.currentUser.email).await().toObject(net.raj.mushimushi.models.User::class.java)!!
+    suspend fun addPost(text: String) {
+        val user = userDao.getUserById(auth.currentUser!!.email!!).await()
+            .toObject(net.raj.mushimushi.models.User::class.java)!!
 
         val currentTime = System.currentTimeMillis()
-        val post = Post(auth.currentUser.email,user,text,currentTime)
+        val post = Post(auth.currentUser!!.email!!, user, text, currentTime)
 
         postCollection.document().set(post)
 
     }
 
+
     fun getPostCollectionReference(): CollectionReference {
         return postCollection
     }
 
-    fun getPostById(postId: String): Task<DocumentSnapshot> {
+    private fun getPostById(postId: String): Task<DocumentSnapshot> {
         return postCollection.document(postId).get()
     }
 
-    suspend fun updateReaction(postId: String,type : String) {
+    suspend fun updateReaction(postId: String, type: String) {
         val currentUserId = auth.currentUser!!.uid
         val post = getPostById(postId).await().toObject(Post::class.java)!!
 
 
-        when(type){
+        when (type) {
             "like" -> {
                 val isLiked = post.likes.contains(currentUserId)
 
-                if(isLiked) {
+                if (isLiked) {
                     post.likes.remove(currentUserId)
                 } else {
                     post.likes.add(currentUserId)
@@ -52,28 +53,28 @@ class PostDao {
             }
 
             "haha" -> {
-                val isClicked = post.hahaReaction.contains(currentUserId)
-                if(isClicked){
-                    post.hahaReaction.remove(currentUserId)
-                }else{
-                    post.hahaReaction.add(currentUserId)
+                val isClicked = post.haHaReaction.contains(currentUserId)
+                if (isClicked) {
+                    post.haHaReaction.remove(currentUserId)
+                } else {
+                    post.haHaReaction.add(currentUserId)
                 }
             }
 
             "sad" -> {
                 val isClicked = post.sadReaction.contains(currentUserId)
-                if(isClicked){
+                if (isClicked) {
                     post.sadReaction.remove(currentUserId)
-                }else{
+                } else {
                     post.sadReaction.add(currentUserId)
                 }
             }
 
             "angry" -> {
                 val isClicked = post.angryReaction.contains(currentUserId)
-                if(isClicked){
+                if (isClicked) {
                     post.angryReaction.remove(currentUserId)
-                }else{
+                } else {
                     post.angryReaction.add(currentUserId)
                 }
             }
@@ -84,10 +85,26 @@ class PostDao {
 
     }
 
-    suspend fun deletePost(postId: String) {
+    fun deletePost(postId: String) {
         postCollection.document(postId).delete()
-                .addOnSuccessListener {
-                    Log.d("Del","Deleted")
-                }
+            .addOnSuccessListener {
+                Timber.d("Post Deleted")
+            }
+    }
+
+    suspend fun updateCommentCount(postId: String, type: String) {
+        val post = postCollection.document(postId).get().await().toObject(Post::class.java)!!
+
+        when (type) {
+            "inc" -> {
+                post.commentCount++
+            }
+
+            "dec" -> {
+                post.commentCount--
+            }
+        }
+
+        postCollection.document(postId).set(post)
     }
 }

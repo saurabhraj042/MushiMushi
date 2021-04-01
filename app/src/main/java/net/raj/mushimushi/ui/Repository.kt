@@ -1,11 +1,6 @@
 package net.raj.mushimushi.ui
 
 import com.google.firebase.firestore.CollectionReference
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import net.raj.mushimushi.daos.CommentsDao
 import net.raj.mushimushi.daos.PostDao
 import net.raj.mushimushi.daos.UserDao
@@ -16,22 +11,32 @@ class Repository {
     private val postDao = PostDao()
     private val commentsDao = CommentsDao()
 
-    suspend fun addComment(text: String,postId: String){
+    suspend fun addComment(text: String, postId: String) {
         commentsDao.addComment(text, postId)
+    }
+
+    fun deleteComments(postId: String) {
+        commentsDao.deleteComments(postId)
     }
 
     fun getCommentCollection(): CollectionReference {
         return commentsDao.getCommentCollection()
     }
-    suspend fun addUser(user: User){
+
+    suspend fun updateReactionOnComment(docId: String, type: String) {
+        commentsDao.updateReaction(docId, type)
+    }
+
+    suspend fun deleteSingleComment(docId: String) {
+        commentsDao.deleteSingleComment(docId)
+    }
+
+
+    fun addUser(user: User) {
         userDao.addUser(user)
     }
 
-    fun getUserById(uId : String){
-        userDao.getUserById(uId)
-    }
-
-    suspend fun addPost(text : String){
+    suspend fun addPost(text: String) {
         postDao.addPost(text)
     }
 
@@ -39,14 +44,17 @@ class Repository {
         return postDao.getPostCollectionReference()
     }
 
-    suspend fun updatePostReaction(postId : String,type : String){
-        postDao.updateReaction(postId,type)
+    suspend fun updatePostReaction(postId: String, type: String) {
+        postDao.updateReaction(postId, type)
     }
 
-     suspend fun deletePost(postId: String) {
-            postDao.deletePost(postId)
+    fun deletePost(postId: String) {
+        postDao.deletePost(postId)
     }
 
-    
+    suspend fun updateCommentCountOnPost(postId: String, type: String) {
+        postDao.updateCommentCount(postId, type)
+    }
+
 
 }

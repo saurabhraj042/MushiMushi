@@ -6,7 +6,8 @@ data class Post(
         val textBody : String = "",
         val createdAt : Long = 0L,
         val likes : ArrayList<String> = ArrayList(),
-        val hahaReaction : ArrayList<String> = ArrayList(),
+        val haHaReaction : ArrayList<String> = ArrayList(),
         val angryReaction : ArrayList<String> = ArrayList(),
-        val sadReaction : ArrayList<String> = ArrayList()
+        val sadReaction : ArrayList<String> = ArrayList(),
+        var commentCount : Int = 0
 )

@@ -22,18 +22,18 @@
         android:paddingVertical="10dp">
 
         <ImageView
-            android:id="@+id/userImage"
+            android:id="@+id/img_user_post"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_margin="0dp"
             android:adjustViewBounds="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/postTitle"
+            app:layout_constraintStart_toStartOf="@+id/txt_body_post"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/userName"
+            android:id="@+id/txt_user_name_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -41,26 +41,27 @@
             android:textColor="#212121"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/userImage"
+            app:layout_constraintBottom_toBottomOf="@+id/img_user_post"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/userImage"
-            app:layout_constraintTop_toTopOf="@+id/userImage"
+            app:layout_constraintStart_toEndOf="@+id/img_user_post"
+            app:layout_constraintTop_toTopOf="@+id/img_user_post"
             app:layout_constraintVertical_bias="0.214" />
 
         <TextView
-            android:id="@+id/createdAt"
+            android:id="@+id/txt_timestamp_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/userImage"
-            app:layout_constraintEnd_toEndOf="@+id/userName"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/img_user_post"
+            app:layout_constraintEnd_toEndOf="@+id/txt_user_name_post"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/userName" />
+            app:layout_constraintStart_toStartOf="@+id/txt_user_name_post" />
 
         <TextView
-            android:id="@+id/postTitle"
+            android:id="@+id/txt_body_post"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -70,108 +71,113 @@
             app:layout_constraintHorizontal_bias="0.473"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userImage"
+            app:layout_constraintTop_toBottomOf="@+id/img_user_post"
             app:layout_constraintVertical_bias="0.039" />
 
         <ImageView
-            android:id="@+id/likeButton"
+            android:id="@+id/btn_like_post"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintLeft_toLeftOf="@id/postTitle"
-            app:layout_constraintTop_toBottomOf="@id/postTitle" />
+            app:layout_constraintLeft_toLeftOf="@id/txt_body_post"
+            app:layout_constraintTop_toBottomOf="@id/txt_body_post" />
 
         <TextView
-            android:id="@+id/likeCount"
+            android:id="@+id/txt_like_count_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            app:layout_constraintBottom_toBottomOf="@id/likeButton"
-            app:layout_constraintLeft_toRightOf="@id/likeButton"
-            app:layout_constraintTop_toTopOf="@id/likeButton" />
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/btn_like_post"
+            app:layout_constraintLeft_toRightOf="@id/btn_like_post"
+            app:layout_constraintTop_toTopOf="@id/btn_like_post" />
 
         <ImageView
-            android:id="@+id/commentButton"
+            android:id="@+id/btn_comment_post"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toEndOf="@+id/likeCount"
-            app:layout_constraintTop_toBottomOf="@+id/postTitle" />
+            app:layout_constraintStart_toEndOf="@+id/txt_like_count_post"
+            app:layout_constraintTop_toBottomOf="@+id/txt_body_post" />
 
         <ImageView
-            android:id="@+id/hahaEmojiImageView"
+            android:id="@+id/btn_haha_post"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/commentButton"
-            app:layout_constraintStart_toEndOf="@+id/commentCount"
-            app:layout_constraintTop_toTopOf="@+id/commentButton"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_comment_post"
+            app:layout_constraintStart_toEndOf="@+id/txt_comment_count_post"
+            app:layout_constraintTop_toTopOf="@+id/btn_comment_post"
             app:srcCompat="@drawable/laughing" />
 
         <TextView
-            android:id="@+id/hahaCount"
+            android:id="@+id/txt_haha_count_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/hahaEmojiImageView"
-            app:layout_constraintStart_toEndOf="@+id/hahaEmojiImageView"
-            app:layout_constraintTop_toTopOf="@+id/hahaEmojiImageView" />
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_haha_post"
+            app:layout_constraintStart_toEndOf="@+id/btn_haha_post"
+            app:layout_constraintTop_toTopOf="@+id/btn_haha_post" />
 
         <ImageView
-            android:id="@+id/angryEmojiImageView"
+            android:id="@+id/btn_angry_post"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/hahaEmojiImageView"
-            app:layout_constraintStart_toEndOf="@+id/hahaCount"
-            app:layout_constraintTop_toTopOf="@+id/hahaEmojiImageView"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_haha_post"
+            app:layout_constraintStart_toEndOf="@+id/txt_haha_count_post"
+            app:layout_constraintTop_toTopOf="@+id/btn_haha_post"
             app:srcCompat="@drawable/angry" />
 
         <TextView
-            android:id="@+id/angryCount"
+            android:id="@+id/txt_angry_count_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/angryEmojiImageView"
-            app:layout_constraintStart_toEndOf="@+id/angryEmojiImageView"
-            app:layout_constraintTop_toTopOf="@+id/angryEmojiImageView" />
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_angry_post"
+            app:layout_constraintStart_toEndOf="@+id/btn_angry_post"
+            app:layout_constraintTop_toTopOf="@+id/btn_angry_post" />
 
         <ImageView
-            android:id="@+id/sadEmojiImageView"
+            android:id="@+id/btn_sad_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/angryEmojiImageView"
-            app:layout_constraintStart_toEndOf="@+id/angryCount"
-            app:layout_constraintTop_toTopOf="@+id/angryEmojiImageView"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_angry_post"
+            app:layout_constraintStart_toEndOf="@+id/txt_angry_count_post"
+            app:layout_constraintTop_toTopOf="@+id/btn_angry_post"
             app:srcCompat="@drawable/crying" />
 
         <TextView
-            android:id="@+id/sadCount"
+            android:id="@+id/txt_sad_count_post"
             android:layout_width="0dp"
             android:layout_height="19dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/sadEmojiImageView"
-            app:layout_constraintStart_toEndOf="@+id/sadEmojiImageView"
-            app:layout_constraintTop_toTopOf="@+id/sadEmojiImageView" />
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_sad_post"
+            app:layout_constraintStart_toEndOf="@+id/btn_sad_post"
+            app:layout_constraintTop_toTopOf="@+id/btn_sad_post" />
 
         <TextView
-            android:id="@+id/commentCount"
+            android:id="@+id/txt_comment_count_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/commentButton"
-            app:layout_constraintStart_toEndOf="@+id/commentButton"
-            app:layout_constraintTop_toTopOf="@+id/commentButton" />
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_comment_post"
+            app:layout_constraintStart_toEndOf="@+id/btn_comment_post"
+            app:layout_constraintTop_toTopOf="@+id/btn_comment_post" />
 
         <ImageView
-            android:id="@+id/deletePostButton"
+            android:id="@+id/btn_del_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/sadEmojiImageView"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_sad_post"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_delete" />
 

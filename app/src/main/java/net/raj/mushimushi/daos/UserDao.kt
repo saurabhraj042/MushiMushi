@@ -6,14 +6,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import net.raj.mushimushi.models.User
 
 class UserDao {
-    private  val db = FirebaseFirestore.getInstance()
-    private  val userCollection = db.collection("users")
+    private val db = FirebaseFirestore.getInstance()
+    private val userCollection = db.collection("users")
 
-    suspend fun addUser(user : User){
+    fun addUser(user: User) {
         userCollection.document(user.uid).set(user)
     }
 
-    fun getUserById(uId : String): Task<DocumentSnapshot>{
+    fun getUserById(uId: String): Task<DocumentSnapshot> {
         return userCollection.document(uId).get()
     }
 

@@ -5,20 +5,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:id="@+id/appBarHome"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
-<!--            android:background="@color/appBarColorDay"-->
-<!--            android:textAlignment="center"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:title="@string/appName"-->
-<!--            app:titleTextColor="@color/black"></androidx.appcompat.widget.Toolbar>-->
-
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -47,12 +35,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:menu="@menu/bottom_app_bar" />
+                app:menu="@menu/ic_menu_bottom_app_bar" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
+                android:id="@+id/btn_add_new_post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/description_postBT_home"
                 app:layout_anchor="@id/bottomAppBar"
                 app:srcCompat="@drawable/ic_add_post" />
 
@@ -65,8 +54,8 @@
             android:fontFamily="@font/almendra_bold_italic"
             android:gravity="center"
             android:padding="10dp"
-            android:text="MushiMushi"
-            android:textColor="@color/black"
+            android:text="@string/titleAppBarHome"
+            android:textColor="@color/titleColorAppBarHome"
             android:textSize="20sp"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,16 +63,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/scrollUpButtonHomeFrag"
+            android:id="@+id/btn_new_posts_scroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@drawable/curve_bg"
-            android:drawableRight="@drawable/ic_arrow_upward"
+            android:drawableEnd="@drawable/ic_arrow_upward"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="New Posts"
-            android:textSize="8sp"
+            android:text="@string/textNewPostBTHome"
+            android:textSize="12sp"
             app:iconPadding="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

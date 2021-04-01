@@ -20,27 +20,30 @@
             android:id="@+id/action_homeFragment_to_createPostFragment"
             app:destination="@id/createPostFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_commentSectActivity"
-            app:destination="@id/commentSectActivity" />
-        <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
         android:name="net.raj.mushimushi.ui.home.CreatePostFragment"
         android:label="CreatePostFragment" />
-    <activity
-        android:id="@+id/commentSectActivity"
-        android:name="net.raj.mushimushi.ui.comments.CommentSectActivity"
-        android:label="activity_comment_sect"
-        tools:layout="@layout/activity_comment_sect" >
-        <argument
-            android:name="postId"
-            app:argType="string" />
-    </activity>
     <fragment
         android:id="@+id/searchFragment"
         android:name="net.raj.mushimushi.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="net.raj.mushimushi.ui.comments.CommentFragment"
+        android:label="CommentFragment" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -14,9 +14,9 @@ class SearchViewModel : ViewModel() {
         return repository.getPostCollectionReference()
     }
 
-    fun updatePostReaction(postId : String,type : String){
+    fun updatePostReaction(postId: String, type: String) {
         GlobalScope.launch(Dispatchers.IO) {
-            repository.updatePostReaction(postId,type)
+            repository.updatePostReaction(postId, type)
         }
     }
 

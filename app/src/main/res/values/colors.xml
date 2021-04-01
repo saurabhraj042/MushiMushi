@@ -9,6 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="appBarColorDay">#FFFFFFFF</color>
     <color name="titleTextColor">#252a34</color>
-    <color name="signOutButtonColor">#252a34</color>
+    <color name="btPrimaryColor">#252a34</color>
 
+    // For Texts
+    <color name="textColorPrimary">@color/black</color>
+    <color name="titleColorAppBarHome">@color/black</color>
 </resources>

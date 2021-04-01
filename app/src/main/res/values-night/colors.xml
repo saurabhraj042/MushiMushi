@@ -2,5 +2,10 @@
 <resources>
     <color name="appBarColorDay">@color/black</color>
     <color name="titleTextColor">#eaeaea</color>
-    <color name="signOutButtonColor">#eaeaea</color>
+    <color name="btPrimaryColor">#eaeaea</color>
+
+
+    // For Texts
+    <color name="textColorPrimary">@color/black</color>
+    <color name="titleColorAppBarHome">@color/black</color>
 </resources>

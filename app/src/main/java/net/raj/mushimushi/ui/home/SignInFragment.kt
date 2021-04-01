@@ -2,13 +2,12 @@ package net.raj.mushimushi.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -19,51 +18,54 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import net.raj.mushimushi.R
 import net.raj.mushimushi.databinding.FragmentSignInBinding
+import timber.log.Timber
 
 
 class SignInFragment : Fragment() {
     private val RC_SIGN_IN: Int = 123
-    private val TAG = "SignInFragment"
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var binding: FragmentSignInBinding
-    private val sharedViewModel : HomeViewModel by activityViewModels()
+    private lateinit var viewModel: HomeViewModel
 
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_in, container, false)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel.firebaseUser = FirebaseAuth.getInstance().currentUser
+        setUpSignInClient()
+        setOnCLickListeners()
+        return binding.root
+    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private fun setUpSignInClient() {
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
-
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_sign_in,container,false)
-
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
         googleSignInClient = activity?.let { GoogleSignIn.getClient(it, gso) }!!
+    }
 
-
-        sharedViewModel.firebaseUser = FirebaseAuth.getInstance().currentUser
-
-        binding.signInButton.setOnClickListener{
+    private fun setOnCLickListeners() {
+        binding.btnSignIn.setOnClickListener {
             signIn()
         }
-
-
-//        sharedViewModel.firebaseUser.observe(viewLifecycleOwner){
-//            updateUI(it)
-//        }
-        return binding.root
     }
 
 
     override fun onStart() {
         super.onStart()
-        updateUI(sharedViewModel.firebaseUser)
+        updateUI(viewModel.firebaseUser)
     }
 
     private fun signIn() {
         binding.progressBar.visibility = View.VISIBLE
-        binding.signInButton.visibility = View.GONE
+        binding.btnSignIn.visibility = View.GONE
+        binding.imgMeme.visibility = View.GONE
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
@@ -77,11 +79,11 @@ class SignInFragment : Fragment() {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+                Timber.d("firebaseAuthWithGoogle: + $account.id")
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e)
+                Timber.e(e, "Google Sign In Failed")
             }
         }
     }
@@ -89,34 +91,34 @@ class SignInFragment : Fragment() {
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         activity?.let {
-            sharedViewModel.auth.signInWithCredential(credential)
-                    .addOnCompleteListener(it) { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success")
+            viewModel.auth.signInWithCredential(credential)
+                .addOnCompleteListener(it) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Timber.d("signInWithCredential:success")
 
-                           sharedViewModel.firebaseUser = sharedViewModel.auth.currentUser
-                            updateUI(sharedViewModel.firebaseUser)
+                        viewModel.firebaseUser = viewModel.auth.currentUser
+                        updateUI(viewModel.firebaseUser)
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Timber.e(task.exception, "signInWithCredential:failed")
 
-                        }
                     }
+                }
         }
     }
 
     private fun updateUI(user: FirebaseUser?) {
-        if (user!=null){
-            val firebaseUser = sharedViewModel.auth.currentUser
-            sharedViewModel.addUser(firebaseUser)
-            Log.i(TAG,"Signed in")
-            Navigation.findNavController(binding.root).navigate(R.id.action_signInFragment2_to_homeFragment)
-        }else{
-            binding.signInButton.visibility = View.VISIBLE
+        if (user != null) {
+            val firebaseUser = viewModel.auth.currentUser
+            viewModel.addNewUser(firebaseUser)
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_signInFragment2_to_homeFragment)
+        } else {
+            binding.btnSignIn.visibility = View.VISIBLE
+            binding.imgMeme.visibility = View.VISIBLE
             binding.progressBar.visibility = View.GONE
-            Log.e(TAG,"Not Signed in")
         }
     }
 }
