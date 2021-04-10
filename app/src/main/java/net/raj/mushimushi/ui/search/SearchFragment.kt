@@ -74,7 +74,7 @@ class SearchFragment : Fragment(), IPostAdapter {
         val recyclerViewOptions = FirestoreRecyclerOptions.Builder<Post>()
             .setQuery(query, Post::class.java).build()
 
-        adapter = PostAdapter(recyclerViewOptions, this)
+        adapter = PostAdapter(recyclerViewOptions, this,null,null,binding.txtTitleSearch)
 
         binding.recyclerSearch.adapter = adapter
         binding.recyclerSearch.layoutManager = LinearLayoutManager(this.context)
@@ -85,9 +85,7 @@ class SearchFragment : Fragment(), IPostAdapter {
         viewModel.onSavePostByUser(postId)
     }
 
-    override fun changeInListSize(itemCount: Int) {
-        Timber.d("Doing Nothing bruh chill ;)")
-    }
+
 
 
     override fun onPostDeleteBTClicked(postId: String) {

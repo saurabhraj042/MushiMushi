@@ -21,23 +21,35 @@
         <action
             android:id="@+id/action_homeFragment_to_createPostFragment"
             app:destination="@id/createPostFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:popExitAnim="@anim/fui_slide_out_left" />
-        <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:popExitAnim="@anim/fui_slide_out_left" />
+            app:enterAnim="@anim/zoom_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/zoom_out" />
         <action
             android:id="@+id/action_homeFragment_to_commentFragment"
             app:destination="@id/commentFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
             app:popExitAnim="@anim/fui_slide_out_left" />
         <action
             android:id="@+id/action_homeFragment_to_savedPostsFragment"
             app:destination="@id/savedPostsFragment"
+            app:enterAnim="@anim/bottom_up"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@anim/bottom_down" />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment"
             app:enterAnim="@anim/fui_slide_in_right"
-            app:popExitAnim="@anim/fui_slide_out_left" />
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/bottom_up"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@anim/bottom_down" />
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
@@ -50,8 +62,9 @@
         <action
             android:id="@+id/action_searchFragment_to_commentFragment"
             app:destination="@id/commentFragment"
-            app:enterAnim="@anim/fui_slide_in_right"
-            app:popExitAnim="@anim/fui_slide_out_left" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@anim/fui_slide_out_left"  />
     </fragment>
     <fragment
         android:id="@+id/commentFragment"
@@ -69,7 +82,28 @@
         <action
             android:id="@+id/action_savedPostsFragment_to_commentFragment"
             app:destination="@id/commentFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@anim/fui_slide_out_left"  />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="net.raj.mushimushi.ui.notification.NotificationFragment"
+        android:label="NotificationFragment" >
+        <action
+            android:id="@+id/action_notificationFragment_to_postFragment"
+            app:destination="@id/postFragment"
             app:enterAnim="@anim/fui_slide_in_right"
-            app:popExitAnim="@anim/fui_slide_out_left" />
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="net.raj.mushimushi.ui.post.PostFragment"
+        android:label="PostFragment" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -18,7 +18,8 @@ import net.raj.mushimushi.ui.shared.Utils
 class CommentAdapter(
     options: FirestoreRecyclerOptions<Comments>,
     private val listener: ICommentAdapter,
-    private val viewOnEmpty: View
+    private val showViewOnEmptyRecycler: View,
+    private val titleBarTextCommentView : TextView? = null
 ) :
     FirestoreRecyclerAdapter<Comments, CommentAdapter.ViewHolder>(
         options
@@ -72,7 +73,7 @@ class CommentAdapter(
         holder.txtUserName.text = model.user.displayName.toString()
         holder.txtLikeCount.text = model.likes.size.toString()
         holder.txtDislikeCount.text = model.dislikes.size.toString()
-        Glide.with(holder.imgUserImage.context).load(model.user.imageUrl).centerCrop()
+        Glide.with(holder.imgUserImage.context).load(model.user.imageUrl).circleCrop()
             .into(holder.imgUserImage)
         holder.txtTimeStamp.text = Utils.getTimeAgo(model.createdAt)
 
@@ -89,7 +90,10 @@ class CommentAdapter(
 
     override fun onDataChanged() {
         super.onDataChanged()
-        viewOnEmpty.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
+        showViewOnEmptyRecycler.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
+        titleBarTextCommentView?.let {
+            it.text = "Comments(${itemCount})"
+        }
 
     }
 

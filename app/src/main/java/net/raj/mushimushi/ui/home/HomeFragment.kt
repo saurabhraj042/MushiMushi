@@ -5,10 +5,11 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
@@ -17,11 +18,12 @@ import net.raj.mushimushi.databinding.FragmentHomeBinding
 import net.raj.mushimushi.models.Post
 import net.raj.mushimushi.ui.shared.IPostAdapter
 import net.raj.mushimushi.ui.shared.PostAdapter
+import timber.log.Timber
 
 class HomeFragment : Fragment(), IPostAdapter {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: PostAdapter
 
 
@@ -31,26 +33,43 @@ class HomeFragment : Fragment(), IPostAdapter {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        binding.btnNewPostsScroll.visibility = View.GONE
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
+        initViewsState()
+        viewModelObservers()
+        subscribeToNotifications()
         setupOnClickListeners()
         setUpRecyclerView()
+
+        Timber.plant(Timber.DebugTree())
 
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModelObservers()
+    private fun initViewsState() {
+        binding.btnNewPostsScroll.visibility = View.GONE
+        binding.btnNotificationHome.setImageDrawable(
+            ContextCompat.getDrawable(
+                binding.btnNotificationHome.context,
+                R.drawable.ic_notification_bell
+            )
+        )
     }
 
     private fun viewModelObservers() {
-        viewModel.numberOfPosts.observe(viewLifecycleOwner) {
-            binding.btnNewPostsScroll.visibility = View.VISIBLE
-        }
+        viewModel.isNewPost.observe(viewLifecycleOwner, {
+            if (it) {
+                binding.btnNewPostsScroll.visibility = View.VISIBLE
+            }
+        })
+
 
     }
+
+    private fun subscribeToNotifications() {
+        viewModel.notificationListener()
+        viewModel.newPostsListener()
+    }
+
 
     private fun setupOnClickListeners() {
         binding.btnAddNewPost.setOnClickListener {
@@ -58,10 +77,16 @@ class HomeFragment : Fragment(), IPostAdapter {
                 .navigate(R.id.action_homeFragment_to_createPostFragment)
         }
 
+        binding.btnNotificationHome.setOnClickListener {
+
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_homeFragment_to_notificationFragment)
+        }
 
         binding.btnNewPostsScroll.setOnClickListener {
             Handler().postDelayed({ binding.recyclerView.scrollToPosition(0) }, 200)
             it.visibility = View.GONE
+            viewModel.isNewPost.value = false
         }
 
 
@@ -85,6 +110,7 @@ class HomeFragment : Fragment(), IPostAdapter {
                         .navigate(R.id.action_homeFragment_to_savedPostsFragment)
                     true
                 }
+
                 else -> false
             }
         }
@@ -102,10 +128,6 @@ class HomeFragment : Fragment(), IPostAdapter {
 
     override fun onSaveBTClicked(postId: String) {
         viewModel.onSavePostBTClicked(postId)
-    }
-
-    override fun changeInListSize(itemCount: Int) {
-        viewModel.checkListSize(itemCount)
     }
 
 
@@ -127,7 +149,6 @@ class HomeFragment : Fragment(), IPostAdapter {
     override fun onStart() {
         super.onStart()
         adapter.startListening()
-
     }
 
     override fun onStop() {

@@ -18,4 +18,8 @@
     <string name="txt_post_btn">POST</string>
     <string name="hint_et_search_post">Search for someting :)</string>
     <string name="txt_search_post_btn">Search Posts</string>
+    <string name="txt_notification">on your post</string>
+    <string name="txt_title_notification">Notifications</string>
+    <string name="txt_title_post_view">Post</string>
+    <string name="post_card_transition">post_card_transition</string>
 </resources>

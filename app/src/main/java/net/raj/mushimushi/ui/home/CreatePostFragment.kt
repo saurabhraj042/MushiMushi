@@ -1,6 +1,7 @@
 package net.raj.mushimushi.ui.home
 
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 import net.raj.mushimushi.R
 import net.raj.mushimushi.databinding.FragmentCreatePostBinding
 
@@ -31,8 +33,7 @@ class CreatePostFragment : Fragment() {
 
     private fun setOnClickListeners() {
         binding.btnNewPost.setOnClickListener {
-            hideSoftKBD()
-            getInputText()
+            onClickPostBT()
         }
 
     }
@@ -42,10 +43,19 @@ class CreatePostFragment : Fragment() {
         imm!!.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
-    private fun getInputText() {
+    private fun onClickPostBT() {
+        hideSoftKBD()
         val text = binding.etInputPost.text.toString().trim()
-        viewModel.addNewPost(text)
-        Navigation.findNavController(binding.root).popBackStack()
+        if(text.isEmpty()){
+            Snackbar.make(binding.root,"Cannot make a Empty post :(",Snackbar.LENGTH_LONG)
+                .setTextColor(Color.WHITE)
+                .setBackgroundTint(Color.parseColor("#fd5e53"))
+                .show()
+        }else{
+            viewModel.addNewPost(text)
+            Navigation.findNavController(binding.root).popBackStack()
+        }
+
     }
 
 

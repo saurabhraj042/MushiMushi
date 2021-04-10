@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,6 +13,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="52dp"
+            android:background="#dfdfdf"
             app:layout_constraintBottom_toBottomOf="@+id/coordinatorLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -46,6 +48,7 @@
                 app:layout_anchor="@id/bottomAppBar"
                 app:srcCompat="@drawable/ic_add_post" />
 
+
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <TextView
@@ -78,6 +81,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/recyclerView" />
+
+        <ImageView
+            android:id="@+id/btn_notification_home"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_notification_bell"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/homeTitleTop"
+            app:layout_constraintTop_toTopOf="@+id/homeTitleTop" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

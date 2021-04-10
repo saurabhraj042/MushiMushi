@@ -1,15 +1,28 @@
 package net.raj.mushimushi.ui
 
+import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
-import net.raj.mushimushi.daos.CommentsDao
-import net.raj.mushimushi.daos.PostDao
-import net.raj.mushimushi.daos.UserDao
+import com.google.firebase.firestore.DocumentSnapshot
+import net.raj.mushimushi.daos.*
+import net.raj.mushimushi.models.PostCount
 import net.raj.mushimushi.models.User
 
 class Repository {
     private val userDao = UserDao()
     private val postDao = PostDao()
     private val commentsDao = CommentsDao()
+    private val notificationDao = NotificationDao()
+    private val postCountDao = PostCountDao()
+
+
+    suspend fun updatePostCount(type: String){
+        postCountDao.updatePostCount(type)
+    }
+
+    fun getNotificationCollection(): CollectionReference {
+        return notificationDao.getNotificationCollection()
+    }
+
 
     suspend fun savePostForUser(postId: String){
         postDao.savePostForUser(postId)
@@ -56,7 +69,7 @@ class Repository {
         postDao.updateReaction(postId, type)
     }
 
-    fun deletePost(postId: String) {
+    suspend fun deletePost(postId: String) {
         postDao.deletePost(postId)
     }
 
@@ -64,5 +77,12 @@ class Repository {
         postDao.updateCommentCount(postId, type)
     }
 
+    fun getUserById(id : String) : Task<DocumentSnapshot> {
+        return userDao.getUserById(id)
+    }
+
+    fun getPostCountCollection(): CollectionReference {
+        return postCountDao.getPostCountCollection()
+    }
 
 }

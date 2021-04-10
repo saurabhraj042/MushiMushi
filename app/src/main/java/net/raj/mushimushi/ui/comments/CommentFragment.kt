@@ -1,6 +1,7 @@
 package net.raj.mushimushi.ui.comments
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.Query
 import net.raj.mushimushi.R
 import net.raj.mushimushi.databinding.FragmentCommentBinding
@@ -48,11 +50,22 @@ class CommentFragment : Fragment(), ICommentAdapter {
     private fun setClickListeners() {
         binding.btnPostComment.setOnClickListener {
             hideSoftKBD()
-            val text = binding.etCommentInput.text.toString()
+            onCLickPostComment()
+        }
+
+    }
+
+    private fun onCLickPostComment() {
+        val text = binding.etCommentInput.text.toString()
+        if(text.isEmpty()){
+            Snackbar.make(binding.root,"Cannot post a Empty comment :(", Snackbar.LENGTH_LONG)
+                .setTextColor(Color.WHITE)
+                .setBackgroundTint(Color.parseColor("#fd5e53"))
+                .show()
+        }else{
             viewModel.addComment(text, postId)
             binding.etCommentInput.text.clear()
         }
-
     }
 
 
@@ -73,7 +86,7 @@ class CommentFragment : Fragment(), ICommentAdapter {
             query,
             Comments::class.java
         ).build()
-        adapter = CommentAdapter(recyclerViewOptions, this, binding.viewOnEmpty)
+        adapter = CommentAdapter(recyclerViewOptions, this, binding.viewOnEmpty,binding.txtTitleComment)
         binding.recyclerviewComment.adapter = adapter
         binding.recyclerviewComment.layoutManager = LinearLayoutManager(this.context)
     }

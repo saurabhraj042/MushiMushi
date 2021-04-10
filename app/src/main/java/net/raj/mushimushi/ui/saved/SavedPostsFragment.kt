@@ -46,7 +46,7 @@ class SavedPostsFragment : Fragment(), IPostAdapter {
         val recyclerViewOptions = FirestoreRecyclerOptions.Builder<Post>()
             .setQuery(query, Post::class.java).build()
 
-        adapter = PostAdapter(recyclerViewOptions, this, binding.viewOnEmptySaved)
+        adapter = PostAdapter(recyclerViewOptions, this, binding.viewOnEmptySaved,binding.txtTitleSavedView)
         val layoutManager = LinearLayoutManager(this.context)
         binding.recyclerSaved.adapter = adapter
         binding.recyclerSaved.layoutManager = layoutManager
@@ -57,9 +57,7 @@ class SavedPostsFragment : Fragment(), IPostAdapter {
         viewModel.onSavePostBTClicked(postId)
     }
 
-    override fun changeInListSize(itemCount: Int) {
-        Timber.d("Chill :)")
-    }
+
 
 
     override fun onPostDeleteBTClicked(postId: String) {

@@ -18,8 +18,13 @@ import com.google.firebase.ktx.Firebase
 import net.raj.mushimushi.R
 import net.raj.mushimushi.models.Post
 
-class PostAdapter(options: FirestoreRecyclerOptions<Post>, private val listener: IPostAdapter,
-                    private val viewOnEmpty : View? = null) :
+class PostAdapter(
+    options: FirestoreRecyclerOptions<Post>,
+    private val listener: IPostAdapter,
+    private val showViewOnEmptyRecycler: View? = null,
+    private val titleTextBarSavedPostView : TextView?=null,
+    private val titleTextBarSearchPostView : TextView?=null,
+) :
     FirestoreRecyclerAdapter<Post, PostAdapter.PostAdapterViewHolder>(
         options
     ) {
@@ -87,6 +92,7 @@ class PostAdapter(options: FirestoreRecyclerOptions<Post>, private val listener:
         holder.txtPost.text = model.textBody
         holder.txtUserName.text = model.user.displayName
         Glide.with(holder.imgUser.context).load(model.user.imageUrl)
+            .circleCrop()
             .apply(
                 RequestOptions()
                     .format(DecodeFormat.PREFER_ARGB_8888)
@@ -162,16 +168,22 @@ class PostAdapter(options: FirestoreRecyclerOptions<Post>, private val listener:
     }
 
     override fun onDataChanged() {
-        listener.changeInListSize(itemCount)
-        if( viewOnEmpty!=null ){
-            viewOnEmpty.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
+        showViewOnEmptyRecycler?.let{
+            it.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
+        }
+
+        titleTextBarSavedPostView?.let {
+            it.text = "Saved Posts (${itemCount})"
+        }
+
+        titleTextBarSearchPostView?.let {
+            it.text = "Search Posts (${itemCount})"
         }
     }
 }
 
 interface IPostAdapter {
     fun onSaveBTClicked(postId: String)
-    fun changeInListSize(itemCount: Int)
     fun onPostDeleteBTClicked(postId: String)
     fun onReactionBTClicked(postId: String, type: String)
     fun onCommentBTClicked(postId: String)
