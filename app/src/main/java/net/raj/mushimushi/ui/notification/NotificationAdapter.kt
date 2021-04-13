@@ -16,7 +16,7 @@ import net.raj.mushimushi.ui.shared.Utils
 class NotificationAdapter(
     options: FirestoreRecyclerOptions<Notification>,
     private val listener: INotification,
-    private val titleBarTextNotificationView : TextView
+    private val titleBarTextNotificationView: TextView
 ) :
     FirestoreRecyclerAdapter<Notification, NotificationAdapter.ViewHolder>(
         options

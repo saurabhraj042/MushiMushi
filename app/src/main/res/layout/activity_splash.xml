@@ -7,16 +7,29 @@
     android:background="@color/black"
     tools:context=".ui.SplashActivity">
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/splashGif"
+    <ImageView
+        android:id="@+id/img_logo_splash"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/splash"
+        android:layout_height="0dp"
+        android:contentDescription="@string/des_logo_splash_screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.427" />
+        app:srcCompat="@drawable/logo_mushi_mushi" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:text="@string/title_logo_splash"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

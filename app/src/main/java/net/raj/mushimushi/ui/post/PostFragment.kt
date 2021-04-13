@@ -16,7 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import net.raj.mushimushi.R
 import net.raj.mushimushi.databinding.FragmentPostBinding
 import net.raj.mushimushi.models.Comments
-import net.raj.mushimushi.ui.comments.CommentAdapter
+import net.raj.mushimushi.ui.shared.CommentAdapter
 import timber.log.Timber
 
 class PostFragment : Fragment(), CommentAdapter.ICommentAdapter {

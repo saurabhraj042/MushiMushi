@@ -15,7 +15,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:autofillHints="@string/hint_et_search_post"
-            android:background="@drawable/edittext_curve_shape"
+            android:background="@drawable/et_curve_shape"
             android:ems="10"
             android:hint="@string/hint_et_search_post"
             android:imeOptions="actionDone"

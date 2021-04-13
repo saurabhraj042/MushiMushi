@@ -10,10 +10,11 @@ class PostCountDao {
     private val db = FirebaseFirestore.getInstance()
     private val postCountCollection = db.collection("postCount")
 
-    suspend fun updatePostCount(type : String){
-        val postCountObject = postCountCollection.document("COUNT").get().await().toObject(PostCount::class.java)
+    suspend fun updatePostCount(type: String) {
+        val postCountObject =
+            postCountCollection.document("COUNT").get().await().toObject(PostCount::class.java)
         if (postCountObject != null) {
-            when(type){
+            when (type) {
                 "add" -> {
                     postCountObject.postCount++
                 }
@@ -22,7 +23,7 @@ class PostCountDao {
                 }
             }
             postCountCollection.document("COUNT").set(postCountObject)
-        }else{
+        } else {
             postCountCollection.document("COUNT").set(PostCount(0))
 
         }

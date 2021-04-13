@@ -4,7 +4,6 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import net.raj.mushimushi.daos.*
-import net.raj.mushimushi.models.PostCount
 import net.raj.mushimushi.models.User
 
 class Repository {
@@ -15,7 +14,7 @@ class Repository {
     private val postCountDao = PostCountDao()
 
 
-    suspend fun updatePostCount(type: String){
+    suspend fun updatePostCount(type: String) {
         postCountDao.updatePostCount(type)
     }
 
@@ -24,11 +23,11 @@ class Repository {
     }
 
 
-    suspend fun savePostForUser(postId: String){
+    suspend fun savePostForUser(postId: String) {
         postDao.savePostForUser(postId)
     }
 
-    suspend fun unSavePostForUser(postId: String){
+    suspend fun unSavePostForUser(postId: String) {
         postDao.unSavePostForUser(postId)
     }
 
@@ -77,7 +76,7 @@ class Repository {
         postDao.updateCommentCount(postId, type)
     }
 
-    fun getUserById(id : String) : Task<DocumentSnapshot> {
+    fun getUserById(id: String): Task<DocumentSnapshot> {
         return userDao.getUserById(id)
     }
 

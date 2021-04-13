@@ -1,4 +1,4 @@
-package net.raj.mushimushi.ui.comments
+package net.raj.mushimushi.ui.shared
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +13,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import net.raj.mushimushi.R
 import net.raj.mushimushi.models.Comments
-import net.raj.mushimushi.ui.shared.Utils
 
 class CommentAdapter(
     options: FirestoreRecyclerOptions<Comments>,
     private val listener: ICommentAdapter,
     private val showViewOnEmptyRecycler: View,
-    private val titleBarTextCommentView : TextView? = null
+    private val titleBarTextCommentView: TextView? = null
 ) :
     FirestoreRecyclerAdapter<Comments, CommentAdapter.ViewHolder>(
         options

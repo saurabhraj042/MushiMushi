@@ -1,25 +1,21 @@
 package net.raj.mushimushi.ui.saved
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.Query
-import com.google.firebase.ktx.Firebase
 import net.raj.mushimushi.R
 import net.raj.mushimushi.databinding.FragmentSavedPostsBinding
 import net.raj.mushimushi.models.Post
 import net.raj.mushimushi.ui.shared.IPostAdapter
 import net.raj.mushimushi.ui.shared.PostAdapter
-import timber.log.Timber
 
 class SavedPostsFragment : Fragment(), IPostAdapter {
 
@@ -38,15 +34,18 @@ class SavedPostsFragment : Fragment(), IPostAdapter {
     }
 
     private fun setupRecyclerview() {
-        val currentUserId = Firebase.auth.currentUser!!.uid
-        val query = viewModel.getPostCollectionRef()
-            .whereArrayContains("savedByUsers", currentUserId)
-            .orderBy("createdAt", Query.Direction.DESCENDING)
+
+        val query = viewModel.setupQuery()
 
         val recyclerViewOptions = FirestoreRecyclerOptions.Builder<Post>()
             .setQuery(query, Post::class.java).build()
 
-        adapter = PostAdapter(recyclerViewOptions, this, binding.viewOnEmptySaved,binding.txtTitleSavedView)
+        adapter = PostAdapter(
+            recyclerViewOptions,
+            this,
+            binding.viewOnEmptySaved,
+            binding.txtTitleSavedView
+        )
         val layoutManager = LinearLayoutManager(this.context)
         binding.recyclerSaved.adapter = adapter
         binding.recyclerSaved.layoutManager = layoutManager
@@ -56,8 +55,6 @@ class SavedPostsFragment : Fragment(), IPostAdapter {
     override fun onSaveBTClicked(postId: String) {
         viewModel.onSavePostBTClicked(postId)
     }
-
-
 
 
     override fun onPostDeleteBTClicked(postId: String) {

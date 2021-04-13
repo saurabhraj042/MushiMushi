@@ -30,9 +30,6 @@ class HomeViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
     var isNewPost: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
-
-
-
     fun newPostsListener() {
         val postCountCollection = repository.getPostCountCollection()
 

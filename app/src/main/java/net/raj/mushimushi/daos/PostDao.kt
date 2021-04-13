@@ -17,14 +17,14 @@ class PostDao {
     private val userDao = UserDao()
     private val notificationDao = NotificationDao()
 
-    suspend fun savePostForUser(postId: String){
+    suspend fun savePostForUser(postId: String) {
         val currentUserId = auth.currentUser!!.uid
         val post = getPostById(postId).await().toObject(Post::class.java)!!
         post.savedByUsers.add(currentUserId)
         postCollection.document(postId).set(post)
     }
 
-    suspend fun unSavePostForUser(postId: String){
+    suspend fun unSavePostForUser(postId: String) {
         val currentUserId = auth.currentUser!!.uid
         val post = getPostById(postId).await().toObject(Post::class.java)!!
         post.savedByUsers.remove(currentUserId)
@@ -64,14 +64,14 @@ class PostDao {
 
                 if (isLiked) {
                     post.likes.remove(currentUserId)
-                    if(isCurrentUserNotPostOwner){
+                    if (isCurrentUserNotPostOwner) {
                         notificationDao.deleteNotification(postId, type)
                     }
 
                 } else {
                     post.likes.add(currentUserId)
-                    if(isCurrentUserNotPostOwner){
-                        notificationDao.addNotification(postId,type,post.user)
+                    if (isCurrentUserNotPostOwner) {
+                        notificationDao.addNotification(postId, type, post.user)
                     }
                 }
             }
@@ -80,13 +80,13 @@ class PostDao {
                 val isClicked = post.haHaReaction.contains(currentUserId)
                 if (isClicked) {
                     post.haHaReaction.remove(currentUserId)
-                    if(isCurrentUserNotPostOwner){
+                    if (isCurrentUserNotPostOwner) {
                         notificationDao.deleteNotification(postId, type)
                     }
                 } else {
                     post.haHaReaction.add(currentUserId)
-                    if(isCurrentUserNotPostOwner){
-                        notificationDao.addNotification(postId,type,post.user)
+                    if (isCurrentUserNotPostOwner) {
+                        notificationDao.addNotification(postId, type, post.user)
                     }
                 }
             }
@@ -95,13 +95,13 @@ class PostDao {
                 val isClicked = post.sadReaction.contains(currentUserId)
                 if (isClicked) {
                     post.sadReaction.remove(currentUserId)
-                    if(isCurrentUserNotPostOwner){
+                    if (isCurrentUserNotPostOwner) {
                         notificationDao.deleteNotification(postId, type)
                     }
                 } else {
                     post.sadReaction.add(currentUserId)
-                    if(isCurrentUserNotPostOwner){
-                        notificationDao.addNotification(postId,type,post.user)
+                    if (isCurrentUserNotPostOwner) {
+                        notificationDao.addNotification(postId, type, post.user)
                     }
                 }
             }
@@ -110,13 +110,13 @@ class PostDao {
                 val isClicked = post.angryReaction.contains(currentUserId)
                 if (isClicked) {
                     notificationDao.deleteNotification(postId, type)
-                    if(isCurrentUserNotPostOwner){
+                    if (isCurrentUserNotPostOwner) {
                         notificationDao.deleteNotification(postId, type)
                     }
                 } else {
                     post.angryReaction.add(currentUserId)
-                    if(isCurrentUserNotPostOwner){
-                        notificationDao.addNotification(postId,type,post.user)
+                    if (isCurrentUserNotPostOwner) {
+                        notificationDao.addNotification(postId, type, post.user)
                     }
                 }
             }

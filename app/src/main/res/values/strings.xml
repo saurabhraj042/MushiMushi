@@ -22,4 +22,9 @@
     <string name="txt_title_notification">Notifications</string>
     <string name="txt_title_post_view">Post</string>
     <string name="post_card_transition">post_card_transition</string>
+    <string name="title_logo_splash">Created by Saurabh Raj</string>
+    <string name="des_logo_splash_screen">Logo for Splash Screen</string>
+    <string name="des_btn_notification_panel">Button for Notification Panel</string>
+    <string name="des_img_comment_post">User image for comment post view</string>
+    <string name="des_btn">Button</string>
 </resources>

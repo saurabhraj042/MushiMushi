@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:transitionName="@string/post_card_transition"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:backgroundTint="@color/white"
+        android:transitionName="@string/post_card_transition"
         tools:context=".ui.comments.CommentSectActivity">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -31,7 +31,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:autofillHints="@string/et_hint_comment"
-            android:background="@drawable/edittext_curve_shape"
+            android:background="@drawable/et_curve_shape"
             android:ems="10"
             android:hint="@string/et_hint_comment"
             android:imeOptions="actionDone"

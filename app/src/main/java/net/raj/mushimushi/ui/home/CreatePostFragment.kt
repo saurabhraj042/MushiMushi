@@ -46,12 +46,12 @@ class CreatePostFragment : Fragment() {
     private fun onClickPostBT() {
         hideSoftKBD()
         val text = binding.etInputPost.text.toString().trim()
-        if(text.isEmpty()){
-            Snackbar.make(binding.root,"Cannot make a Empty post :(",Snackbar.LENGTH_LONG)
+        if (text.isEmpty()) {
+            Snackbar.make(binding.root, "Cannot make a Empty post :(", Snackbar.LENGTH_LONG)
                 .setTextColor(Color.WHITE)
                 .setBackgroundTint(Color.parseColor("#fd5e53"))
                 .show()
-        }else{
+        } else {
             viewModel.addNewPost(text)
             Navigation.findNavController(binding.root).popBackStack()
         }

@@ -1,17 +1,16 @@
 package net.raj.mushimushi.ui.notification
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.android.material.transition.MaterialSharedAxis
 import net.raj.mushimushi.R
 import net.raj.mushimushi.databinding.FragmentNotificationBinding
 import net.raj.mushimushi.models.Notification
@@ -29,7 +28,12 @@ class NotificationFragment : Fragment(), NotificationAdapter.INotification {
     ): View {
 
 
-        binding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_notification,container,false)
+        binding = DataBindingUtil.inflate(
+            layoutInflater,
+            R.layout.fragment_notification,
+            container,
+            false
+        )
         viewModel = ViewModelProvider(this).get(NotificationViewModel::class.java)
 
         setupRecyclerView()
@@ -43,7 +47,7 @@ class NotificationFragment : Fragment(), NotificationAdapter.INotification {
             Notification::class.java
         ).build()
 
-        adapter = NotificationAdapter(recyclerViewOptions,this,binding.txtTitleNotiication)
+        adapter = NotificationAdapter(recyclerViewOptions, this, binding.txtTitleNotification)
         binding.recyclerNotification.adapter = adapter
         binding.recyclerNotification.layoutManager = LinearLayoutManager(this.context)
     }

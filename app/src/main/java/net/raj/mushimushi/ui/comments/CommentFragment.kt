@@ -18,7 +18,8 @@ import com.google.firebase.firestore.Query
 import net.raj.mushimushi.R
 import net.raj.mushimushi.databinding.FragmentCommentBinding
 import net.raj.mushimushi.models.Comments
-import net.raj.mushimushi.ui.comments.CommentAdapter.ICommentAdapter
+import net.raj.mushimushi.ui.shared.CommentAdapter
+import net.raj.mushimushi.ui.shared.CommentAdapter.ICommentAdapter
 
 
 class CommentFragment : Fragment(), ICommentAdapter {
@@ -57,12 +58,12 @@ class CommentFragment : Fragment(), ICommentAdapter {
 
     private fun onCLickPostComment() {
         val text = binding.etCommentInput.text.toString()
-        if(text.isEmpty()){
-            Snackbar.make(binding.root,"Cannot post a Empty comment :(", Snackbar.LENGTH_LONG)
+        if (text.isEmpty()) {
+            Snackbar.make(binding.root, "Cannot post a Empty comment :(", Snackbar.LENGTH_LONG)
                 .setTextColor(Color.WHITE)
                 .setBackgroundTint(Color.parseColor("#fd5e53"))
                 .show()
-        }else{
+        } else {
             viewModel.addComment(text, postId)
             binding.etCommentInput.text.clear()
         }
@@ -86,7 +87,8 @@ class CommentFragment : Fragment(), ICommentAdapter {
             query,
             Comments::class.java
         ).build()
-        adapter = CommentAdapter(recyclerViewOptions, this, binding.viewOnEmpty,binding.txtTitleComment)
+        adapter =
+            CommentAdapter(recyclerViewOptions, this, binding.viewOnEmpty, binding.txtTitleComment)
         binding.recyclerviewComment.adapter = adapter
         binding.recyclerviewComment.layoutManager = LinearLayoutManager(this.context)
     }

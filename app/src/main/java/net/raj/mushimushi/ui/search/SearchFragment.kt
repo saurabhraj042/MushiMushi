@@ -13,13 +13,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.Query
 import net.raj.mushimushi.R
 import net.raj.mushimushi.databinding.FragmentSearchBinding
 import net.raj.mushimushi.models.Post
 import net.raj.mushimushi.ui.shared.IPostAdapter
 import net.raj.mushimushi.ui.shared.PostAdapter
-import timber.log.Timber
 
 class SearchFragment : Fragment(), IPostAdapter {
 
@@ -58,23 +56,15 @@ class SearchFragment : Fragment(), IPostAdapter {
     }
 
     private fun setupRecyclerView() {
-        val searchText = binding.etSearch.text.toString()
+        val textForSearch = binding.etSearch.text.toString()
 
 
-        val query = if (searchText.isEmpty()) {
-            viewModel.getPostCollectionRef()
-                .orderBy("createdAt", Query.Direction.DESCENDING)
-        } else {
-            Timber.d("Searching for $searchText")
-            viewModel.getPostCollectionRef()
-                .whereGreaterThanOrEqualTo("textBody", searchText)
-                .whereLessThanOrEqualTo("textBody", searchText + '\uf8ff')
-        }
+        val query = viewModel.setupQuery(textForSearch)
 
         val recyclerViewOptions = FirestoreRecyclerOptions.Builder<Post>()
             .setQuery(query, Post::class.java).build()
 
-        adapter = PostAdapter(recyclerViewOptions, this,null,null,binding.txtTitleSearch)
+        adapter = PostAdapter(recyclerViewOptions, this, null, null, binding.txtTitleSearch)
 
         binding.recyclerSearch.adapter = adapter
         binding.recyclerSearch.layoutManager = LinearLayoutManager(this.context)
@@ -84,8 +74,6 @@ class SearchFragment : Fragment(), IPostAdapter {
     override fun onSaveBTClicked(postId: String) {
         viewModel.onSavePostByUser(postId)
     }
-
-
 
 
     override fun onPostDeleteBTClicked(postId: String) {

@@ -22,8 +22,8 @@ class PostAdapter(
     options: FirestoreRecyclerOptions<Post>,
     private val listener: IPostAdapter,
     private val showViewOnEmptyRecycler: View? = null,
-    private val titleTextBarSavedPostView : TextView?=null,
-    private val titleTextBarSearchPostView : TextView?=null,
+    private val titleTextBarSavedPostView: TextView? = null,
+    private val titleTextBarSearchPostView: TextView? = null,
 ) :
     FirestoreRecyclerAdapter<Post, PostAdapter.PostAdapterViewHolder>(
         options
@@ -45,7 +45,7 @@ class PostAdapter(
         val btSadCount: TextView = itemView.findViewById(R.id.txt_sad_count_post)
         val btDeletePost: ImageView = itemView.findViewById(R.id.btn_del_post)
         val txtCommentCount: TextView = itemView.findViewById(R.id.txt_comment_count_post)
-        val btSavePost : ImageView = itemView.findViewById(R.id.btn_save_post)
+        val btSavePost: ImageView = itemView.findViewById(R.id.btn_save_post)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapterViewHolder {
@@ -168,7 +168,7 @@ class PostAdapter(
     }
 
     override fun onDataChanged() {
-        showViewOnEmptyRecycler?.let{
+        showViewOnEmptyRecycler?.let {
             it.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
         }
 

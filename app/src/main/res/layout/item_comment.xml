@@ -36,12 +36,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        tools:text="5"
         android:textColor="#706c61"
         app:layout_constraintBottom_toBottomOf="@+id/btn_like_comment"
         app:layout_constraintStart_toEndOf="@+id/btn_like_comment"
         app:layout_constraintTop_toTopOf="@+id/btn_like_comment"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="5" />
 
     <ImageView
         android:id="@+id/btn_dislike_comment"
@@ -58,13 +58,13 @@
         android:id="@+id/txt_dislike_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="9"
         android:layout_marginStart="8dp"
         android:textColor="#706c61"
         app:layout_constraintBottom_toBottomOf="@+id/btn_dislike_comment"
         app:layout_constraintStart_toEndOf="@+id/btn_dislike_comment"
         app:layout_constraintTop_toTopOf="@+id/btn_dislike_comment"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="9" />
 
     <ImageView
         android:id="@+id/btn_delete_comment"

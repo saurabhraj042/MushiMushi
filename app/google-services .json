@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "495458213218-mc7vddgp5jkjrjv41ntmb1je6bnsfjfg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.raj.mushimushi",
+            "certificate_hash": "3a226bb0121d1d1895695c7457306cfb9374b73e"
+          }
+        },
+        {
           "client_id": "495458213218-fobqpvbrqt97ps2rbsg9kjaavm4ruhb9.apps.googleusercontent.com",
           "client_type": 3
         }

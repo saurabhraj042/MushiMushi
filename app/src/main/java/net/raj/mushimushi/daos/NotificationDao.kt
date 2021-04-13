@@ -6,7 +6,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 import net.raj.mushimushi.models.Notification
-import net.raj.mushimushi.models.Post
 import net.raj.mushimushi.models.User
 
 class NotificationDao {
@@ -16,12 +15,12 @@ class NotificationDao {
     private val auth = Firebase.auth
     private val userDao = UserDao()
 
-    suspend fun addNotification(postId : String,type : String,parentPostOwner : User){
+    suspend fun addNotification(postId: String, type: String, parentPostOwner: User) {
         val timestamp = System.currentTimeMillis()
         val currentUser = userDao.getUserById(auth.currentUser!!.email!!).await()
             .toObject(net.raj.mushimushi.models.User::class.java)!!
 
-        val notification = Notification(postId,parentPostOwner,currentUser,type,timestamp)
+        val notification = Notification(postId, parentPostOwner, currentUser, type, timestamp)
 
         notificationCollection.document().set(notification)
     }
@@ -30,24 +29,24 @@ class NotificationDao {
         return notificationCollection
     }
 
-    suspend fun deleteNotification(postId: String , type: String){
+    suspend fun deleteNotification(postId: String, type: String) {
         val currentUser = userDao.getUserById(auth.currentUser!!.email!!).await()
             .toObject(net.raj.mushimushi.models.User::class.java)!!
 
-        notificationCollection.whereEqualTo("postId",postId)
-            .whereEqualTo("type",type)
-            .whereEqualTo("user",currentUser)
+        notificationCollection.whereEqualTo("postId", postId)
+            .whereEqualTo("type", type)
+            .whereEqualTo("user", currentUser)
             .get().addOnSuccessListener {
-                for(dc in it){
+                for (dc in it) {
                     dc.reference.delete()
                 }
             }
     }
 
-    suspend fun deleteAllNotificationsForPost(postId: String){
-        notificationCollection.whereEqualTo("postId",postId)
+    suspend fun deleteAllNotificationsForPost(postId: String) {
+        notificationCollection.whereEqualTo("postId", postId)
             .get().addOnSuccessListener {
-                for (dc in it){
+                for (dc in it) {
                     dc.reference.delete()
                 }
             }

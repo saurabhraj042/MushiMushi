@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_post"
@@ -220,6 +220,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/recycler_comment_post_view"
             app:layout_constraintTop_toBottomOf="@+id/view_card_post">
+
             <ImageView
                 android:id="@+id/cross_post_view"
                 android:layout_width="wrap_content"
@@ -242,11 +243,12 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/img_user_commment_post_view"
+            android:id="@+id/img_user_comment_post_view"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:contentDescription="@string/des_img_comment_post"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_card_post"
             tools:background="@tools:sample/avatars" />
@@ -258,26 +260,28 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:autofillHints="@string/et_hint_comment"
-            android:background="@drawable/edittext_curve_shape"
+            android:background="@drawable/et_curve_shape"
             android:backgroundTint="#f4f3f3"
             android:ems="10"
             android:hint="@string/et_hint_comment"
             android:imeOptions="actionDone"
+            android:inputType="text"
             android:paddingHorizontal="10dp"
             android:paddingVertical="10dp"
             android:textColor="@color/black"
             android:textColorHint="#606470"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_user_commment_post_view"
+            app:layout_constraintBottom_toBottomOf="@+id/img_user_comment_post_view"
             app:layout_constraintEnd_toStartOf="@+id/btn_et_add_comment_post_view"
-            app:layout_constraintStart_toEndOf="@+id/img_user_commment_post_view"
-            app:layout_constraintTop_toTopOf="@+id/img_user_commment_post_view" />
+            app:layout_constraintStart_toEndOf="@+id/img_user_comment_post_view"
+            app:layout_constraintTop_toTopOf="@+id/img_user_comment_post_view" />
 
         <ImageView
             android:id="@+id/btn_et_add_comment_post_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:contentDescription="@string/des_btn"
             app:layout_constraintBottom_toBottomOf="@+id/et_add_comment_post_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/et_add_comment_post_view"

@@ -53,9 +53,9 @@ class PostViewModel : ViewModel() {
                 binding.txtHahaCountPostView.text = post.haHaReaction.size.toString()
                 binding.txtSadCountPostView.text = post.sadReaction.size.toString()
 
-                Glide.with(binding.imgUserCommmentPostView.context).load(post.user.imageUrl)
+                Glide.with(binding.imgUserCommentPostView.context).load(post.user.imageUrl)
                     .circleCrop()
-                    .into(binding.imgUserCommmentPostView)
+                    .into(binding.imgUserCommentPostView)
 
                 //Visibility
                 binding.txtLikeCountPostView.visibility =
