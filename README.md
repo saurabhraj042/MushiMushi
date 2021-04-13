@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/saurabhraj042/MushiMushi"><img src="/images/logo.png" width="150"></a></p> 
+<p align="center"><a href="https://github.com/saurabhraj042/MushiMushi"><img src="/images/logo.svg" width="150"></a></p> 
 <h2 align="center"><b>Mushi-Mushi</b></h2> 
 <p align="center">
 <a href="https://github.com/saurabhraj042/MushiMushi" alt="GitHub release"><img src="https://img.shields.io/badge/version-0.1.0-blue.svg" ></a>
@@ -7,16 +7,21 @@
 </p>
 <hr>
 
+## Demo
+
+![MushiMushiDemo](./images/demo.gif)
+
 ## Screenshots
 
-[<img src="images/1.png" width=160>](images/1.png)
-[<img src="images/2.png" width=160>](images/2.png)
-[<img src="images/3.png" width=160>](images/3.png)
-[<img src="images/4.png" width=160>](images/4.png)
-[<img src="images/5.png" width=160>](images/5.png)
-[<img src="images/6.png" width=160>](images/6.png)
-[<img src="images/7.png" width=160>](images/7.png)
-[<img src="images/8.png" width=160>](images/8.png)
+[<img src="images/1.png" width=200>](images/1.png)
+[<img src="images/2.png" width=200>](images/2.png)
+[<img src="images/3.png" width=200>](images/3.png)
+[<img src="images/4.png" width=200>](images/4.png)
+[<img src="images/5.png" width=200>](images/5.png)
+[<img src="images/6.png" width=200>](images/6.png)
+[<img src="images/7.png" width=200>](images/7.png)
+[<img src="images/8.png" width=200>](images/8.png)
+[<img src="images/9.png" width=200>](images/9.png)
 
 
 ## Description
